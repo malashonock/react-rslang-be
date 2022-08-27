@@ -134,6 +134,10 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Word"
+        400: 
+          description: Bad request
+            1. Search params are not valid integers.
+            2. Page number is specified while group number is not specified.
   /words/{id}:
     parameters:
       - name: id
