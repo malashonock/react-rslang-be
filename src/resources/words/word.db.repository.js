@@ -3,9 +3,19 @@ const { NOT_FOUND_ERROR } = require('../../errors/appErrors');
 const ENTITY_NAME = 'word';
 
 const getAll = async conditions => {
-  const { group, page } = conditions;
+  const filter = {};
 
-  return Word.find({ group, page });
+  for (const searchParamKey in conditions) {
+    if (Object.hasOwnProperty.call(conditions, searchParamKey)) {
+      const searchParamValue = conditions[searchParamKey];
+
+      if (searchParamValue !== null) {
+        filter[searchParamKey] = searchParamValue;
+      }
+    }
+  }
+
+  return Word.find(filter);
 };
 
 const get = async id => {
