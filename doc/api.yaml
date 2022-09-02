@@ -63,7 +63,7 @@ components:
         gameDate:
           type: string
           format: date-time
-          example: "2022-09-02T09:16:03Z"
+          example: "2022-09-02T09:16:03.999Z"
         gameType:
           type: string
           enum: [audio-challenge, sprint]
@@ -535,6 +535,14 @@ paths:
         - Users/Statistics
       summary: Get all statistics for a user
       description: Get all statistics for a user
+      parameters:
+        - name: gameDate
+          in: query
+          required: false
+          description: statistics date
+          schema:
+            type: string
+            example: "2022-09-01"
       responses:
         200:
           description: Successful operation
@@ -564,7 +572,7 @@ paths:
                 gameDate:
                   type: string
                   format: date-time
-                  example: "2022-09-02T09:16:03Z"
+                  example: "2022-09-02T09:16:03.999Z"
                 gameType:
                   type: string
                   enum: [audio-challenge, sprint]
@@ -594,13 +602,13 @@ paths:
   /users/{id}/statistics/{statId}:
     parameters:
       - name: id
-        description: userId
+        description: user id
         in: path
         required: true
         schema:
           type: string
       - name: statId
-        description: statId
+        description: statistics id
         in: path
         required: true
         schema:

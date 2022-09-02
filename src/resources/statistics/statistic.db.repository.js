@@ -3,7 +3,34 @@ const { NOT_FOUND_ERROR, ENTITY_EXISTS } = require('../../errors/appErrors');
 const ENTITY_NAME = 'statistic';
 const MONGO_ENTITY_EXISTS_ERROR_CODE = 11000;
 
-const getAll = async userId => Statistics.find({ userId });
+const getAll = async (userId, conditions) => {
+  const filter = {
+    userId
+  };
+
+  for (const searchParamKey in conditions) {
+    if (Object.hasOwnProperty.call(conditions, searchParamKey)) {
+      const searchParamValue = conditions[searchParamKey];
+
+      if (searchParamValue === null) {
+        break;
+      }
+
+      if (searchParamKey === 'gameDate') {
+        const isoDateString = searchParamValue.toISOString().slice(0, 10);
+
+        filter[searchParamKey] = {
+          $gte: new Date(`${isoDateString}T00:00:00.000Z`),
+          $lte: new Date(`${isoDateString}T23:59:59.999Z`)
+        };
+      } else {
+        filter[searchParamKey] = searchParamValue;
+      }
+    }
+  }
+
+  return Statistics.find(filter);
+};
 
 const get = async (userId, statId) => {
   const statistic = await Statistics.findOne({ _id: statId, userId });

@@ -1,6 +1,7 @@
 const statisticRepo = require('./statistic.db.repository');
 
-const getAll = async userId => statisticRepo.getAll(userId);
+const getAll = async (userId, conditions) =>
+  statisticRepo.getAll(userId, conditions);
 
 const get = async (userId, statId) => statisticRepo.get(userId, statId);
 

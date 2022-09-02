@@ -1,11 +1,24 @@
 const { OK, NO_CONTENT } = require('http-status-codes');
+const { BAD_REQUEST_ERROR } = require('../../errors/appErrors');
 const router = require('express').Router({ mergeParams: true });
 const statisticService = require('./statistic.service');
 const { statId, statistics } = require('../../utils/validation/schemas');
 const { validator } = require('../../utils/validation/validator');
+const extractQueryParam = require('../../utils/getQueryDateParameter');
 
 router.get('/', async (req, res) => {
-  const userStats = await statisticService.getAll(req.userId);
+  const gameDate = extractQueryParam(req.query.gameDate, null);
+
+  if (gameDate && gameDate.toString() === 'Invalid Date') {
+    throw new BAD_REQUEST_ERROR(
+      'Wrong query parameters: the date must be a valid ISO date string'
+    );
+  }
+
+  const userStats = await statisticService.getAll(req.userId, {
+    gameDate
+  });
+
   res.status(OK).send(userStats.map(statistic => statistic.toResponse()));
 });
 
