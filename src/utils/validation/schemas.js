@@ -39,7 +39,17 @@ const schemas = {
   userWord: Joi.object()
     .options({ abortEarly: false, allowUnknown: false })
     .keys({
-      difficulty: Joi.string().max(50),
+      wasPlayed: Joi.boolean(),
+      correctGuessCount: Joi.number()
+        .integer()
+        .min(0)
+        .max(1000),
+      wrongGuessCount: Joi.number()
+        .integer()
+        .min(0)
+        .max(1000),
+      isDifficult: Joi.boolean(),
+      isLearned: Joi.boolean(),
       optional: optionalScheme
     }),
   statistics: Joi.object()

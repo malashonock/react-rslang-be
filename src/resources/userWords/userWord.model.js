@@ -6,7 +6,11 @@ const UserWordsSchema = new Schema(
   {
     wordId: { type: mongoose.Schema.Types.ObjectID, required: true },
     userId: { type: mongoose.Schema.Types.ObjectID, required: true },
-    difficulty: { type: String, required: false },
+    wasPlayed: { type: Boolean, required: false },
+    correctGuessCount: { type: Number, required: false },
+    wrongGuessCount: { type: Boolean, required: false },
+    isDifficult: { type: Boolean, required: false },
+    isLearned: { type: Boolean, required: false },
     optional: {
       type: Object,
       required: false
