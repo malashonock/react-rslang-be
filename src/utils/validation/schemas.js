@@ -29,6 +29,7 @@ const optionalScheme = Joi.object()
 const schemas = {
   id: Joi.object({ id: Joi.objectId() }),
   wordId: Joi.object({ id: Joi.objectId(), wordId: Joi.objectId() }),
+  statId: Joi.object({ id: Joi.objectId(), statId: Joi.objectId() }),
   user: Joi.object()
     .options({ abortEarly: false, allowUnknown: true })
     .keys({
@@ -43,11 +44,11 @@ const schemas = {
       correctGuessCount: Joi.number()
         .integer()
         .min(0)
-        .max(1000),
+        .max(100000),
       wrongGuessCount: Joi.number()
         .integer()
         .min(0)
-        .max(1000),
+        .max(100000),
       isDifficult: Joi.boolean(),
       isLearned: Joi.boolean(),
       optional: optionalScheme
@@ -55,7 +56,22 @@ const schemas = {
   statistics: Joi.object()
     .options({ abortEarly: false, allowUnknown: false })
     .keys({
+      gameDate: Joi.date().required(),
+      gameType: Joi.string().valid('audio-challenge', 'sprint'),
       learnedWords: Joi.number()
+        .integer()
+        .min(0)
+        .max(100000),
+      guessedWords: Joi.number()
+        .integer()
+        .min(0)
+        .max(100000),
+      totalWords: Joi.number()
+        .integer()
+        .min(1)
+        .max(100000)
+        .required(),
+      maxGuessedSeries: Joi.number()
         .integer()
         .min(0)
         .max(100000),

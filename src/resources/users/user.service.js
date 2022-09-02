@@ -3,7 +3,8 @@ const bcrypt = require('bcrypt');
 const usersRepo = require('./user.db.repository');
 const tokenService = require('../token/token.service');
 const settingsService = require('../settings/setting.service');
-const statisticService = require('../statistics/statistic.service');
+// const userWordService = require('../userWords/userWord.service');
+// const statisticService = require('../statistics/statistic.service');
 const { AUTHENTICATION_ERROR } = require('../../errors/appErrors');
 
 const authenticate = async user => {
@@ -26,7 +27,9 @@ const save = user => usersRepo.save(user);
 const update = (id, user) => usersRepo.update(id, user);
 
 const remove = async id => {
-  await statisticService.remove(id);
+  // to be implemented yet:
+  // await statisticService.removeAll(id);
+  // await userwordService.removeAll(id);
   await settingsService.remove(id);
   await usersRepo.remove(id);
 };

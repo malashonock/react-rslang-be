@@ -1,10 +1,15 @@
 const statisticRepo = require('./statistic.db.repository');
 
-const get = async userId => statisticRepo.get(userId);
+const getAll = async userId => statisticRepo.getAll(userId);
 
-const upsert = async (userId, statistic) =>
-  statisticRepo.upsert(userId, { ...statistic, userId });
+const get = async (userId, statId) => statisticRepo.get(userId, statId);
 
-const remove = async userId => statisticRepo.remove(userId);
+const save = async (userId, statistic) =>
+  statisticRepo.save({ userId, ...statistic });
 
-module.exports = { get, upsert, remove };
+const update = async (userId, statId, statistic) =>
+  statisticRepo.update(statId, { userId, ...statistic });
+
+const remove = async statId => statisticRepo.remove(statId);
+
+module.exports = { getAll, get, save, update, remove };
