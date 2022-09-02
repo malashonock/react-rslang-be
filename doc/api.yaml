@@ -43,6 +43,8 @@ components:
     UserWord:
       type: object
       properties:
+        id:
+          type: string
         wasPlayed:
           type: boolean
         correctGuessCount:
@@ -60,6 +62,8 @@ components:
     Statistic:
       type: object
       properties:
+        id:
+          type: string
         gameDate:
           type: string
           format: date-time
@@ -82,6 +86,8 @@ components:
     Setting:
       type: object
       properties:
+        id:
+          type: string
         wordsPerDay:
           type: number
         optional:
@@ -91,6 +97,8 @@ components:
     User:
       type: object
       properties:
+        id:
+          type: string
         name:
           type: string
         email:
@@ -162,7 +170,7 @@ paths:
   /words/{id}:
     parameters:
       - name: id
-        description: wordId
+        description: word id
         in: path
         required: true
         schema:
@@ -218,7 +226,7 @@ paths:
   /users/{id}:
     parameters:
       - name: id
-        description: userId
+        description: user id
         in: path
         required: true
         schema:
@@ -304,7 +312,7 @@ paths:
   /users/{id}/words:
     parameters:
       - name: id
-        description: userId
+        description: user id
         in: path
         required: true
         schema:
@@ -328,13 +336,13 @@ paths:
   /users/{id}/words/{wordId}:
     parameters:
       - name: id
-        description: userId
+        description: user id
         in: path
         required: true
         schema:
           type: string
       - name: wordId
-        description: wordId
+        description: word id
         in: path
         required: true
         schema:
@@ -444,7 +452,7 @@ paths:
   /users/{id}/aggregatedWords:
     parameters:
       - name: id
-        description: userId
+        description: user id
         in: path
         required: true
         schema:
@@ -495,13 +503,13 @@ paths:
   /users/{id}/aggregatedWords/{wordId}:
     parameters:
       - name: id
-        description: userId
+        description: user id
         in: path
         required: true
         schema:
           type: string
       - name: wordId
-        description: wordId
+        description: word id
         in: path
         required: true
         schema:
@@ -525,7 +533,7 @@ paths:
   /users/{id}/statistics:
     parameters:
       - name: id
-        description: userId
+        description: user id
         in: path
         required: true
         schema:
@@ -608,7 +616,7 @@ paths:
         schema:
           type: string
       - name: statId
-        description: statistics id
+        description: statistics record id
         in: path
         required: true
         schema:
