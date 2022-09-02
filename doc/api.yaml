@@ -60,7 +60,20 @@ components:
     Statistic:
       type: object
       properties:
+        gameDate:
+          type: string
+          format: date-time
+          example: "2022-09-02T09:16:03.999Z"
+        gameType:
+          type: string
+          enum: [audio-challenge, sprint]
         learnedWords:
+          type: number
+        guessedWords:
+          type: number
+        totalWords:
+          type: number
+        maxGuessedSeries:
           type: number
         optional:
           type: object
@@ -519,25 +532,35 @@ paths:
           type: string
     get:
       tags:
-        - Users/Statistic
-      summary: Get statistics
-      description: Gets statistics
+        - Users/Statistics
+      summary: Get all statistics for a user
+      description: Get all statistics for a user
+      parameters:
+        - name: gameDate
+          in: query
+          required: false
+          description: statistics date
+          schema:
+            type: string
+            example: "2022-09-01"
       responses:
         200:
           description: Successful operation
           content:
             application/json:
               schema:
+                type: array
+                items:
                   $ref: "#/components/schemas/Statistic"
         401:
           $ref: '#/components/responses/UnauthorizedError'
         404:
           description: Statistics not found
-    put:
+    post:
       tags:
-        - Users/Statistic
-      summary: Upsert statistics
-      description: Upserts new statistics
+        - Users/Statistics
+      summary: Create statistic record
+      description: Create statistic record
       requestBody:
         required: true
         content:
@@ -546,22 +569,117 @@ paths:
               type: object
               title: example
               properties:
+                gameDate:
+                  type: string
+                  format: date-time
+                  example: "2022-09-02T09:16:03.999Z"
+                gameType:
+                  type: string
+                  enum: [audio-challenge, sprint]
                 learnedWords:
                   type: number
-                  description: The number of the total learned words
+                guessedWords:
+                  type: number
+                totalWords:
+                  type: number
+                maxGuessedSeries:
+                  type: number
                 optional:
                   type: object
                   items:
                     type: any
       responses:
         200:
-          description: The statistics has been created.
+          description: The statistics record has been created.
           content:
             application/json:
               schema:
                   $ref: "#/components/schemas/Statistic"
         400:
           description: Bad request
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+  /users/{id}/statistics/{statId}:
+    parameters:
+      - name: id
+        description: user id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: statId
+        description: statistics id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Users/Statistics
+      summary: Get a statistics record by id
+      description: Get a statistics record by id
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Statistic"
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        404:
+          description: Statistics record not found
+    put:
+      tags:
+        - Users/Statistics
+      summary: Update a statistics record
+      description: Update a statistics record
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: example
+              properties:
+                gameDate:
+                  type: string
+                  format: date-time
+                  example: "2022-09-02T09:16:03Z"
+                gameType:
+                  type: string
+                  enum: [audio-challenge, sprint]
+                learnedWords:
+                  type: number
+                guessedWords:
+                  type: number
+                totalWords:
+                  type: number
+                maxGuessedSeries:
+                  type: number
+                optional:
+                  type: object
+                  items:
+                    type: any
+      responses:
+        200:
+          description: The statistics record has been updated.
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/Statistic"
+        400:
+          description: Bad request
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+    delete:
+      tags:
+        - Users/Statistics
+      summary: Delete a statistics record
+      description: Delete a statistics record
+      responses:
+        204:
+          description: The statistics record has been deleted
         401:
           $ref: '#/components/responses/UnauthorizedError'
   /users/{id}/settings:

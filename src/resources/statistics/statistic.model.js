@@ -8,8 +8,29 @@ const StatisticSchema = new Schema(
       type: String,
       required: true
     },
+    gameDate: {
+      type: Date,
+      required: true
+    },
+    gameType: {
+      type: String,
+      required: false
+    },
     learnedWords: {
-      type: Number
+      type: Number,
+      required: false
+    },
+    guessedWords: {
+      type: Number,
+      required: false
+    },
+    totalWords: {
+      type: Number,
+      required: true
+    },
+    maxGuessedSeries: {
+      type: Number,
+      required: false
     },
     optional: {
       type: Object,
@@ -17,6 +38,11 @@ const StatisticSchema = new Schema(
     }
   },
   { collection: 'statistic' }
+);
+
+StatisticSchema.index(
+  { userId: 1, gameDate: 1, gameType: 1 },
+  { unique: true }
 );
 
 addMethods(StatisticSchema);
