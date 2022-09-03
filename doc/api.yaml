@@ -745,6 +745,51 @@ paths:
           description: Bad request
         401:
           $ref: '#/components/responses/UnauthorizedError'
+  /users/{id}/pages:
+    parameters:
+      - name: id
+        description: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: group
+        in: query
+        required: false
+        description: group number
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: page in the group
+        schema:
+          type: string
+    get:
+      tags:
+        - Users/Pages
+      summary: Get pages info
+      description: Get pages info
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    group:
+                      type: number
+                    page:
+                      type: number
+                    isLearned:
+                      type: boolean
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        404:
+          description: Not found
   /signin:
     post:
       tags:
