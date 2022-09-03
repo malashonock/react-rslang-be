@@ -16,7 +16,7 @@ const getAll = async (userId, conditions) => {
         break;
       }
 
-      if (searchParamKey === 'gameDate') {
+      if (searchParamKey === 'date') {
         const isoDateString = searchParamValue.toISOString().slice(0, 10);
 
         filter[searchParamKey] = {

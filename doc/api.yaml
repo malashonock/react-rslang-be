@@ -64,13 +64,15 @@ components:
       properties:
         id:
           type: string
-        gameDate:
+        date:
           type: string
           format: date-time
           example: "2022-09-02T09:16:03.999Z"
-        gameType:
+        source:
           type: string
-          enum: [audio-challenge, sprint]
+          enum: [audio-challenge, sprint, dictionary]
+        newWords:
+          type: number
         learnedWords:
           type: number
         guessedWords:
@@ -544,7 +546,7 @@ paths:
       summary: Get all statistics for a user
       description: Get all statistics for a user
       parameters:
-        - name: gameDate
+        - name: date
           in: query
           required: false
           description: statistics date
@@ -577,13 +579,15 @@ paths:
               type: object
               title: example
               properties:
-                gameDate:
+                date:
                   type: string
                   format: date-time
                   example: "2022-09-02T09:16:03.999Z"
-                gameType:
+                source:
                   type: string
-                  enum: [audio-challenge, sprint]
+                  enum: [audio-challenge, sprint, dictionary]
+                newWords:
+                  type: number
                 learnedWords:
                   type: number
                 guessedWords:
@@ -650,13 +654,15 @@ paths:
               type: object
               title: example
               properties:
-                gameDate:
+                date:
                   type: string
                   format: date-time
                   example: "2022-09-02T09:16:03Z"
-                gameType:
+                source:
                   type: string
-                  enum: [audio-challenge, sprint]
+                  enum: [audio-challenge, sprint, dictionary]
+                newWords:
+                  type: number
                 learnedWords:
                   type: number
                 guessedWords:

@@ -56,11 +56,15 @@ const schemas = {
   statistics: Joi.object()
     .options({ abortEarly: false, allowUnknown: false })
     .keys({
-      gameDate: Joi.date().required(),
-      gameType: Joi.string().valid('audio-challenge', 'sprint'),
-      learnedWords: Joi.number()
+      date: Joi.date().required(),
+      source: Joi.string().valid('audio-challenge', 'sprint', 'dictionary'),
+      newWords: Joi.number()
         .integer()
         .min(0)
+        .max(100000),
+      learnedWords: Joi.number()
+        .integer()
+        .min(-100000)
         .max(100000),
       guessedWords: Joi.number()
         .integer()
@@ -68,7 +72,7 @@ const schemas = {
         .max(100000),
       totalWords: Joi.number()
         .integer()
-        .min(1)
+        .min(0)
         .max(100000)
         .required(),
       maxGuessedSeries: Joi.number()

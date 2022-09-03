@@ -7,16 +7,16 @@ const { validator } = require('../../utils/validation/validator');
 const extractQueryParam = require('../../utils/getQueryDateParameter');
 
 router.get('/', async (req, res) => {
-  const gameDate = extractQueryParam(req.query.gameDate, null);
+  const date = extractQueryParam(req.query.date, null);
 
-  if (gameDate && gameDate.toString() === 'Invalid Date') {
+  if (date && date.toString() === 'Invalid Date') {
     throw new BAD_REQUEST_ERROR(
       'Wrong query parameters: the date must be a valid ISO date string'
     );
   }
 
   const userStats = await statisticService.getAll(req.userId, {
-    gameDate
+    date
   });
 
   res.status(OK).send(userStats.map(statistic => statistic.toResponse()));
