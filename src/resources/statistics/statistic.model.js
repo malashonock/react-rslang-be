@@ -8,12 +8,16 @@ const StatisticSchema = new Schema(
       type: String,
       required: true
     },
-    gameDate: {
+    date: {
       type: Date,
       required: true
     },
-    gameType: {
+    source: {
       type: String,
+      required: false
+    },
+    newWords: {
+      type: Number,
       required: false
     },
     learnedWords: {
