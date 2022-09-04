@@ -8,7 +8,7 @@ const UserWordsSchema = new Schema(
     userId: { type: mongoose.Schema.Types.ObjectID, required: true },
     wasPlayed: { type: Boolean, required: false },
     correctGuessCount: { type: Number, required: false },
-    wrongGuessCount: { type: Boolean, required: false },
+    wrongGuessCount: { type: Number, required: false },
     isDifficult: { type: Boolean, required: false },
     isLearned: { type: Boolean, required: false },
     optional: {
