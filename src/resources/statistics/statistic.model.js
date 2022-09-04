@@ -44,10 +44,7 @@ const StatisticSchema = new Schema(
   { collection: 'statistic' }
 );
 
-StatisticSchema.index(
-  { userId: 1, gameDate: 1, gameType: 1 },
-  { unique: true }
-);
+StatisticSchema.index({ userId: 1, date: 1, source: 1 }, { unique: true });
 
 addMethods(StatisticSchema);
 
